@@ -15,7 +15,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.sourcey.materiallogindemo.dados.Usuarios;
 import com.sourcey.materiallogindemo.util.UserJson;
-import com.sourcey.materiallogindemo.service.UserService;
+import com.sourcey.materiallogindemo.service.UserPost;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -117,7 +117,7 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     public void onSignupFailed() {
-        Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
+        Toast.makeText(getBaseContext(), "Falha ao Logar !!", Toast.LENGTH_LONG).show();
 
         _signupButton.setEnabled(true);
     }
@@ -185,7 +185,7 @@ public class SignupActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create(g))
                 .build();
 
-        UserService user = retrofit.create(UserService.class);
+        UserPost user = retrofit.create(UserPost.class);
         Call<Usuarios> usuarios = user.insertUser(
                 _nameText.getText().toString(),
                 _addressText.getText().toString(),

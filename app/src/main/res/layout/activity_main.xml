@@ -2,30 +2,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".MainActivity">
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/btn_buscar"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
         android:layout_marginBottom="24dp"
+        android:layout_marginTop="24dp"
         android:padding="12dp"
-        android:text="Buscar ..."/>
+        android:text="Buscar ..." />
 
     <TextView
-        android:id="@+id/textJson"
+        android:id="@+id/textViewSearch"
         android:layout_width="wrap_content"
+        android:onClick="btnSearch"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btn_login"
+        android:layout_alignTop="@+id/btn_buscar"
+        android:layout_marginTop="55dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true" />
+
 
 </RelativeLayout>

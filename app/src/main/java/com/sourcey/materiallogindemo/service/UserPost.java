@@ -16,7 +16,7 @@ import retrofit2.http.POST;
  * Created by Ramon Lopes on 04/04/2017.
  */
 
-public interface UserService {
+public interface UserPost {
 
     @FormUrlEncoded
     @POST("/cadastrarUser")

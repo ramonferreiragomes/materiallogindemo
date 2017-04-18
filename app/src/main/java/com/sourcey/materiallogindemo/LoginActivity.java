@@ -26,7 +26,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.sourcey.materiallogindemo.R.id.textJson;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
@@ -44,8 +43,9 @@ public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.link_signup)
     TextView _signupLink;
 
-    //@BindView(R.id.btn_buscar)
-    //Button _btnSearch;
+    @Nullable
+    @BindView(R.id.btn_buscar)
+    Button btnSearch;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -73,15 +73,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        /*
-        _btnSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Response();
-
-            }
-        });
-        */
     }
 
     public void login() {
@@ -166,33 +157,4 @@ public class LoginActivity extends AppCompatActivity {
 
         return valid;
     }
-
-    //search dos dados
-    public void Response() {
-        UserGet userGet = UserGet.retrofit.create(UserGet.class);
-        Call<List<Usuarios>> call = userGet.getUsers();
-        try {
-            List<Usuarios> result = call.execute().body();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        call.enqueue(new Callback<List<Usuarios>>() {
-            @Override
-            public void onResponse(Call<List<Usuarios>> call, Response<List<Usuarios>> response) {
-               final TextView txt = (TextView)findViewById(R.id.textJson);
-               txt.setText(response.body().toString());
-
-            }
-            @Override
-            public void onFailure(Call<List<Usuarios>> call, Throwable t) {
-                final TextView textView = (TextView) findViewById(R.id.textJson);
-                textView.setText("ERROR: " + t.getMessage());
-
-
-            }
-        });
-
-
-    }
-
 }
