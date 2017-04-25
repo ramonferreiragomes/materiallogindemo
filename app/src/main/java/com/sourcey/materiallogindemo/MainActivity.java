@@ -1,39 +1,49 @@
 package com.sourcey.materiallogindemo;
 
 import android.content.Intent;
-import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBarActivity;
+import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.sourcey.materiallogindemo.dados.Usuarios;
-import com.sourcey.materiallogindemo.service.UserGet;
+import com.sourcey.materiallogindemo.model.UserGet;
+import com.sourcey.materiallogindemo.service.Service;
+import com.sourcey.materiallogindemo.util.UserJson;
 
-import java.io.IOException;
 import java.util.List;
 
-import butterknife.BindView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
-public class MainActivity extends AppCompatActivity {
-    private Button btnSearch;
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    public Button btnSearch;
+    private static final String TAG = "MainActivity";
+    public static final String URL = "https://raw.githubusercontent.com/mobilesiri/JSON-Parsing-in-Android/master/index.html";
+    public static final String URL_ROST = "http://192.168.100.106";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        btnSearch = (Button)findViewById(R.id.btn_buscar);
 
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
+
+        btnSearch = (Button) findViewById(R.id.btn_buscar);
+        btnSearch.setOnClickListener(this);
 
 
     }
@@ -60,31 +70,11 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void btnSearch(View view) {
-        UserGet userGet = UserGet.retrofit.create(UserGet.class);
-        Call<List<Usuarios>> call = userGet.getUsers();
-        try {
-            List<Usuarios> result = call.execute().body();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        call.enqueue(new Callback<List<Usuarios>>() {
-            @Override
-            public void onResponse(Call<List<Usuarios>> call, Response<List<Usuarios>> response) {
-                final TextView txt = (TextView) findViewById(R.id.textViewSearch);
-                txt.setText(response.body().toString());
-
-            }
-
-            @Override
-            public void onFailure(Call<List<Usuarios>> call, Throwable t) {
-                final TextView textView = (TextView) findViewById(R.id.textViewSearch);
-                textView.setText("ERROR: " + t.getMessage());
-
-
-            }
-        });
-
+    @Override
+    public void onClick(View v) {
+        Log.d("USER", "==========================");
+        //Toast.makeText(getApplicationContext(), "DANDO CERTO ATE AGORA !!", Toast.LENGTH_LONG).show();
+        Service.returnJson();
 
     }
 }

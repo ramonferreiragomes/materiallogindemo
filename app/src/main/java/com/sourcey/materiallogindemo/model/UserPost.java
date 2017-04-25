@@ -1,4 +1,4 @@
-package com.sourcey.materiallogindemo.service;
+package com.sourcey.materiallogindemo.model;
 
 import com.sourcey.materiallogindemo.dados.Usuarios;
 import com.squareup.okhttp.Call;

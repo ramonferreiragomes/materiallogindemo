@@ -15,7 +15,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.sourcey.materiallogindemo.dados.Usuarios;
 import com.sourcey.materiallogindemo.util.UserJson;
-import com.sourcey.materiallogindemo.service.UserPost;
+import com.sourcey.materiallogindemo.model.UserPost;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

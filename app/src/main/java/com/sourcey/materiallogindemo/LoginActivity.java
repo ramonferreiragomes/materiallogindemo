@@ -13,18 +13,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.sourcey.materiallogindemo.dados.Usuarios;
-import com.sourcey.materiallogindemo.service.UserGet;
-
-import java.io.IOException;
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Optional;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 public class LoginActivity extends AppCompatActivity {
