@@ -1,15 +1,12 @@
-package com.sourcey.materiallogindemo.service;
+package com.sourcey.materiallogindemo;
 
-import android.app.ProgressDialog;
+import android.content.Context;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.sourcey.materiallogindemo.MainActivity;
-import com.sourcey.materiallogindemo.R;
-import com.sourcey.materiallogindemo.SignupActivity;
 import com.sourcey.materiallogindemo.dados.Usuarios;
 import com.sourcey.materiallogindemo.model.UserGet;
 import com.sourcey.materiallogindemo.util.UserJson;
@@ -30,9 +27,11 @@ public class Service {
     public Button btnSearch;
     private static final String TAG = "onResponse";
     public static final String URL = "https://raw.githubusercontent.com/mobilesiri/JSON-Parsing-in-Android/master/index.html";
-    private static final String URL_ROST = "http://localhost:3000";
+    private static final String URL_ROST = "http://192.168.15.4";
+    public Context context;
 
-    public static void returnJson() {
+    public void returnJson() {
+
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(Usuarios.class, new UserJson())
                 .create();
@@ -47,6 +46,7 @@ public class Service {
             @Override
             public void onResponse(Call<List<Usuarios>> call, Response<List<Usuarios>> response) {
 
+
                 if (response.isSuccessful()) {
                     List<Usuarios> user = response.body();
                     for (Usuarios u : user) {
@@ -59,32 +59,30 @@ public class Service {
 
                     }
                 } else {
-                    final MainActivity re = new MainActivity();
+                    Log.d("DANDO EEROR: ", String.valueOf(response.code()));
+                    Toast.makeText(context, "O retorno é: " + response, Toast.LENGTH_LONG).show();
+                    /*
                     final String text = response.message();
-                    re.runOnUiThread(new Runnable() {
+                    context.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
 
-                            final ProgressDialog progressDialog = new ProgressDialog(re,
+                            final ProgressDialog progressDialog = new ProgressDialog(context,
                                     R.style.AppTheme_Dark_Dialog);
                             progressDialog.setIndeterminate(true);
                             progressDialog.setMessage("BAIXANDO.....");
                             progressDialog.show();
-                            Toast.makeText(re, "DANDO EEROR: " + text, Toast.LENGTH_LONG).show();
 
                         }
                     });
-                    Log.d("DANDO EEROR: ", String.valueOf(response.code()));
-                    Toast.makeText(re, "DANDO EEROR: " + response.code(), Toast.LENGTH_LONG).show();
+                    */
                 }
 
             }
 
             @Override
             public void onFailure(Call<List<Usuarios>> call, Throwable t) {
-
-                //Toast.makeText(, "DANDO EEROR: " + t.getMessage(), Toast.LENGTH_LONG).show();
-                Log.d("ERROR", t.getMessage());
+                Log.d("ERROR onFailure", t.getMessage());
 
 
             }
