@@ -1,13 +1,20 @@
 package com.sourcey.materiallogindemo;
 
+import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+
+import com.sourcey.materiallogindemo.service.Service;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -16,6 +23,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final String TAG = "MainActivity";
     public static final String URL = "https://raw.githubusercontent.com/mobilesiri/JSON-Parsing-in-Android/master/index.html";
     public static final String URL_ROST = "http://192.168.100.106";
+
+    public static ProgressDialog dialog;
+
+    @SuppressLint("StaticFieldLeak")
+    public static TextView txtJson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         btnSearch = (Button) findViewById(R.id.btn_buscar);
         btnSearch.setOnClickListener(this);
+        txtJson = (TextView) findViewById(R.id.textViewSearch);
 
 
     }
@@ -56,9 +69,49 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         Log.d("USER", "==========================");
-        //Toast.makeText(getApplicationContext(), "DANDO CERTO ATE AGORA !!", Toast.LENGTH_LONG).show();
-        Service service = new Service();
-        service.returnJson();
+        dialog = new ProgressDialog(this);
+        dialog.setMax(100);
+        dialog.setMessage("Carregando contatos....");
+        dialog.setTitle("Buscando Contatos");
+        dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        dialog.show();
+        Log.d("USER", "==========================");
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    while (dialog.getProgress() <= dialog.getMax()) {
+                        Thread.sleep(100);
+                        handle.sendMessage(handle.obtainMessage());
+                        if (dialog.getProgress() == dialog.getProgress()) {
+
+
+                        }
+
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+                }
+
+            }
+        }).start();
+
+        Log.d("USER", "==========================");
+        Service.returnJson();
 
     }
+
+    @SuppressLint("HandlerLeak")
+    Handler handle = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            dialog.incrementProgressBy(1);
+
+        }
+    };
+
 }

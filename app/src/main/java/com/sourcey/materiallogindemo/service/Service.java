@@ -1,12 +1,14 @@
-package com.sourcey.materiallogindemo;
+package com.sourcey.materiallogindemo.service;
 
 import android.content.Context;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.sourcey.materiallogindemo.MainActivity;
 import com.sourcey.materiallogindemo.dados.Usuarios;
 import com.sourcey.materiallogindemo.model.UserGet;
 import com.sourcey.materiallogindemo.util.UserJson;
@@ -28,9 +30,8 @@ public class Service {
     private static final String TAG = "onResponse";
     public static final String URL = "https://raw.githubusercontent.com/mobilesiri/JSON-Parsing-in-Android/master/index.html";
     private static final String URL_ROST = "http://192.168.15.4";
-    public Context context;
 
-    public void returnJson() {
+    public static void returnJson() {
 
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(Usuarios.class, new UserJson())
@@ -43,6 +44,8 @@ public class Service {
         UserGet apiServer = retrofit.create(UserGet.class);
         Call<List<Usuarios>> usuer = apiServer.getUsers();
         usuer.enqueue(new Callback<List<Usuarios>>() {
+
+
             @Override
             public void onResponse(Call<List<Usuarios>> call, Response<List<Usuarios>> response) {
 
@@ -58,30 +61,19 @@ public class Service {
                         Log.d("USER", "==========================");
 
                     }
+                    MainActivity msin = new MainActivity();
+                    MainActivity.txtJson.setText(user.size());
                 } else {
                     Log.d("DANDO EEROR: ", String.valueOf(response.code()));
-                    Toast.makeText(context, "O retorno é: " + response, Toast.LENGTH_LONG).show();
-                    /*
-                    final String text = response.message();
-                    context.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
 
-                            final ProgressDialog progressDialog = new ProgressDialog(context,
-                                    R.style.AppTheme_Dark_Dialog);
-                            progressDialog.setIndeterminate(true);
-                            progressDialog.setMessage("BAIXANDO.....");
-                            progressDialog.show();
-
-                        }
-                    });
-                    */
                 }
 
             }
 
             @Override
-            public void onFailure(Call<List<Usuarios>> call, Throwable t) {
+            public void onFailure(Call<List<Usuarios>> call, final Throwable t) {
+                MainActivity.dialog.dismiss();
+                MainActivity.txtJson.setText(t.getMessage());
                 Log.d("ERROR onFailure", t.getMessage());
 
 
