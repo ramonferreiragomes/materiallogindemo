@@ -62,20 +62,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onClick(View v) {
-        Log.d("USER", "==========================");
         dialog = new ProgressDialog(this);
         dialog.setMax(100);
         dialog.setMessage("Carregando contatos....");
         dialog.setTitle("Buscando Contatos");
         dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         dialog.show();
-        Log.d("USER", "==========================");
 
         new Thread(new Runnable() {
             @Override
@@ -84,13 +81,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     while (dialog.getProgress() <= dialog.getMax()) {
                         Thread.sleep(100);
                         handle.sendMessage(handle.obtainMessage());
-                        if (dialog.getProgress() == dialog.getProgress()) {
-
-
-                        }
-
-                    }
-
+                        if (dialog.getProgress() == dialog.getProgress()) {}}
                 } catch (Exception e) {
                     e.printStackTrace();
 
@@ -99,7 +90,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }).start();
 
-        Log.d("USER", "==========================");
+        Log.d("MainActivity", "==========================");
+
+        //faz a chamada do metodo statico
         Service.returnJson();
 
     }

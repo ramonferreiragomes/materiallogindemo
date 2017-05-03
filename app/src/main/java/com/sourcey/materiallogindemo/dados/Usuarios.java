@@ -1,6 +1,7 @@
 package com.sourcey.materiallogindemo.dados;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by Ramon Lopes on 04/04/2017.
@@ -10,7 +11,7 @@ public class Usuarios implements Serializable {
     public Usuarios() {
     }
 
-    public Usuarios(String name, String endereco, String email, int numberCel, int senha) {
+    public Usuarios(String name, String endereco, String email, String numberCel, String senha) {
         this.name = name;
         this.endereco = endereco;
         this.email = email;
@@ -21,8 +22,8 @@ public class Usuarios implements Serializable {
     private String name;
     private String endereco;
     private String email;
-    private int numberCel;
-    private int senha;
+    private String numberCel;
+    private String senha;
 
     public String getName() {
         return name;
@@ -48,30 +49,32 @@ public class Usuarios implements Serializable {
         this.email = email;
     }
 
-    public int getNumberCel() {
+    public String getNumberCel() {
         return numberCel;
     }
 
-    public void setNumberCel(int numberCel) {
+    public void setNumberCel(String numberCel) {
         this.numberCel = numberCel;
     }
 
-    public int getSenha() {
+    public String getSenha() {
         return senha;
     }
 
-    public void setSenha(int senha) {
+    public void setSenha(String senha) {
         this.senha = senha;
     }
 
 
     @Override
     public String toString() {
-        return "Nome: " + this.getName() + "/n"+
-                "Endereço: " + this.getEndereco()+"/n"+
-                "Email: "+ this.getEmail()+"/n"+
-                "Celular: "+ this.getNumberCel()+"/n"+
-                "Senha: "+ this.getSenha()+"/n";
+
+        return
+                "\nNome: " + this.getName() +
+                "\nEndereço: " + this.getEndereco()+
+                "\nEmail: "+ this.getEmail()+
+                "\nCelular: "+ this.getNumberCel()+
+                "\nSenha: "+ this.getSenha();
     }
 
 }

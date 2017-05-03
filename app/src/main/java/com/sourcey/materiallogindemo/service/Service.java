@@ -1,5 +1,6 @@
 package com.sourcey.materiallogindemo.service;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
 import android.widget.Button;
@@ -8,10 +9,13 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import com.sourcey.materiallogindemo.MainActivity;
 import com.sourcey.materiallogindemo.dados.Usuarios;
 import com.sourcey.materiallogindemo.model.UserGet;
 import com.sourcey.materiallogindemo.util.UserJson;
+
+import org.json.JSONArray;
 
 import java.util.List;
 
@@ -29,7 +33,9 @@ public class Service {
     public Button btnSearch;
     private static final String TAG = "onResponse";
     public static final String URL = "https://raw.githubusercontent.com/mobilesiri/JSON-Parsing-in-Android/master/index.html";
-    private static final String URL_ROST = "http://192.168.15.4";
+    private static final String URL_ROST = "http://192.168.15.4:3000";
+    private static ProgressDialog dialog;
+    public Context context;
 
     public static void returnJson() {
 
@@ -42,7 +48,7 @@ public class Service {
                 .build();
 
         UserGet apiServer = retrofit.create(UserGet.class);
-        Call<List<Usuarios>> usuer = apiServer.getUsers();
+        final Call<List<Usuarios>> usuer = apiServer.getUsers();
         usuer.enqueue(new Callback<List<Usuarios>>() {
 
 
@@ -52,17 +58,10 @@ public class Service {
 
                 if (response.isSuccessful()) {
                     List<Usuarios> user = response.body();
-                    for (Usuarios u : user) {
-                        Log.d("USER", u.getName() +
-                                "=====" + u.getEndereco() +
-                                "=====" + u.getEmail() +
-                                "=====" + u.getNumberCel() +
-                                "=====" + u.getSenha());
-                        Log.d("USER", "==========================");
 
-                    }
-                    MainActivity msin = new MainActivity();
-                    MainActivity.txtJson.setText(user.size());
+                    Log.d("RETORNO: ", user.toString());
+                    MainActivity.dialog.dismiss();
+                    MainActivity.txtJson.setText(user.toString());
                 } else {
                     Log.d("DANDO EEROR: ", String.valueOf(response.code()));
 
