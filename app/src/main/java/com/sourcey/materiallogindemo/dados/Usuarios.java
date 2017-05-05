@@ -33,7 +33,7 @@ public class Usuarios implements Serializable {
         this.name = name;
     }
 
-    public String getEndereco() {
+    private String getEndereco() {
         return endereco;
     }
 
@@ -41,7 +41,7 @@ public class Usuarios implements Serializable {
         this.endereco = endereco;
     }
 
-    public String getEmail() {
+    private String getEmail() {
         return email;
     }
 
@@ -49,7 +49,7 @@ public class Usuarios implements Serializable {
         this.email = email;
     }
 
-    public String getNumberCel() {
+    private String getNumberCel() {
         return numberCel;
     }
 
@@ -57,7 +57,7 @@ public class Usuarios implements Serializable {
         this.numberCel = numberCel;
     }
 
-    public String getSenha() {
+    private String getSenha() {
         return senha;
     }
 

@@ -16,7 +16,10 @@ import com.sourcey.materiallogindemo.model.UserGet;
 import com.sourcey.materiallogindemo.util.UserJson;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -55,15 +58,32 @@ public class Service {
             @Override
             public void onResponse(Call<List<Usuarios>> call, Response<List<Usuarios>> response) {
 
+                MainActivity.dialog.dismiss();
 
                 if (response.isSuccessful()) {
                     List<Usuarios> user = response.body();
+                    JSONArray array = new JSONArray(user);
+                    JSONObject jsonObject;
+                    jsonObject = new JSONObject();
+                    Usuarios objetUser = new Usuarios();
+                    try {
+                        objetUser.setName(jsonObject.getString("nome"));
+                        objetUser.setName(jsonObject.getString("nome"));
+                        objetUser.setName(jsonObject.getString("nome"));
+                        objetUser.setName(jsonObject.getString("nome"));
 
-                    Log.d("RETORNO: ", user.toString());
-                    MainActivity.dialog.dismiss();
-                    MainActivity.txtJson.setText(user.toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+
+                    Log.i("PESSOA: ", "nome = " + jsonObject.optString("Email"));
+                    Log.i("PESSOA: ", "nome = " + jsonObject.optString("Senha"));
+                    Log.i("PESSOA: ", "nome = " + jsonObject.toString());
+
+
                 } else {
-                    Log.d("DANDO EEROR: ", String.valueOf(response.code()));
+                    Log.i("DANDO EEROR: ", String.valueOf(response.code()));
 
                 }
 
@@ -73,9 +93,6 @@ public class Service {
             public void onFailure(Call<List<Usuarios>> call, final Throwable t) {
                 MainActivity.dialog.dismiss();
                 MainActivity.txtJson.setText(t.getMessage());
-                Log.d("ERROR onFailure", t.getMessage());
-
-
             }
         });
 
