@@ -54,7 +54,6 @@ public class Service {
         final Call<List<Usuarios>> usuer = apiServer.getUsers();
         usuer.enqueue(new Callback<List<Usuarios>>() {
 
-
             @Override
             public void onResponse(Call<List<Usuarios>> call, Response<List<Usuarios>> response) {
 
@@ -62,31 +61,25 @@ public class Service {
 
                 if (response.isSuccessful()) {
                     List<Usuarios> user = response.body();
+                    JSONObject jsonObject = new JSONObject();
                     JSONArray array = new JSONArray(user);
-                    JSONObject jsonObject;
-                    jsonObject = new JSONObject();
-                    Usuarios objetUser = new Usuarios();
-                    try {
-                        objetUser.setName(jsonObject.getString("nome"));
-                        objetUser.setName(jsonObject.getString("nome"));
-                        objetUser.setName(jsonObject.getString("nome"));
-                        objetUser.setName(jsonObject.getString("nome"));
 
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                    for (int i = 0; i < array.length(); i++) {
+                        try {
+                            jsonObject = array.getJSONObject(i);
+                            Log.i("USERS: ", "nome = " + jsonObject);
+                            Log.i("PERCORRENDO ARRAY: ", "nome = " + jsonObject.getString("Email"));
+                            MainActivity.txtJson.setText(jsonObject.toString());
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
-
-
-                    Log.i("PESSOA: ", "nome = " + jsonObject.optString("Email"));
-                    Log.i("PESSOA: ", "nome = " + jsonObject.optString("Senha"));
-                    Log.i("PESSOA: ", "nome = " + jsonObject.toString());
-
-
                 } else {
                     Log.i("DANDO EEROR: ", String.valueOf(response.code()));
 
                 }
-
             }
 
             @Override
@@ -95,7 +88,5 @@ public class Service {
                 MainActivity.txtJson.setText(t.getMessage());
             }
         });
-
-
     }
 }
