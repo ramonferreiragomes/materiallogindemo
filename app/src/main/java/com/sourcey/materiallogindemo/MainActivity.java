@@ -14,6 +14,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.sourcey.materiallogindemo.dados.AccessController;
+import com.sourcey.materiallogindemo.service.CreateSQL;
 import com.sourcey.materiallogindemo.service.Service;
 
 
@@ -28,11 +30,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @SuppressLint("StaticFieldLeak")
     public static TextView txtJson;
+    public static CreateSQL sql;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        sql = new CreateSQL(this);
+
 
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
@@ -60,6 +65,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            AccessController dados = new AccessController();
+            dados.carregaDados();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -67,6 +74,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        Log.d("MainActivity: ", URL_ROST);
+
         dialog = new ProgressDialog(this);
         dialog.setMax(100);
         dialog.setMessage("Carregando contatos....");
@@ -81,7 +90,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     while (dialog.getProgress() <= dialog.getMax()) {
                         Thread.sleep(100);
                         handle.sendMessage(handle.obtainMessage());
-                        if (dialog.getProgress() == dialog.getProgress()) {}}
+                        if (dialog.getProgress() == dialog.getProgress()) {
+                        }
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
 

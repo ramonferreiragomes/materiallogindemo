@@ -58,10 +58,11 @@ public class Service {
             public void onResponse(Call<List<Usuarios>> call, Response<List<Usuarios>> response) {
 
                 MainActivity.dialog.dismiss();
+                Log.i("Resposta JSON: ", String.valueOf(response));
 
                 if (response.isSuccessful()) {
                     List<Usuarios> user = response.body();
-                    JSONObject jsonObject = new JSONObject();
+                    JSONObject jsonObject;
                     JSONArray array = new JSONArray(user);
 
                     for (int i = 0; i < array.length(); i++) {

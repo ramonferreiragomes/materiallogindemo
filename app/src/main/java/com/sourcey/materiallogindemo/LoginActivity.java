@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sourcey.materiallogindemo.dados.BancoController;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -48,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 login();
+
             }
         });
 
@@ -65,12 +68,31 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    public void insertValues() {
+        BancoController crud = new BancoController(getApplicationContext());
+        EditText email = (EditText) findViewById(R.id.input_email);
+        EditText senha = (EditText) findViewById(R.id.input_password);
+
+        String emailValue = email.getText().toString();
+        String senhaValue = senha.getText().toString();
+        String result;
+        Log.d(TAG, "LoginActivity = QUERY { "+ "\nEMAIL: "+ emailValue + "\nSenha: " + senhaValue + "}");
+
+        result = crud.insertDados(emailValue, senhaValue);
+
+        Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
+
+    }
+
     public void login() {
         Log.d(TAG, "LoginActivity");
 
         if (!validate()) {
             onLoginFailed();
             return;
+        }else {
+            Log.d(TAG, "LoginActivity (insertValues)");
+            insertValues();
         }
         _loginButton.setEnabled(false);
 
