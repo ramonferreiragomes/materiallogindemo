@@ -33,12 +33,16 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class Service {
-    public Button btnSearch;
+
+    //public Button btnSearch;
     private static final String TAG = "onResponse";
     public static final String URL = "https://raw.githubusercontent.com/mobilesiri/JSON-Parsing-in-Android/master/index.html";
-    private static final String URL_ROST = "http://192.168.15.4:3000";
-    private static ProgressDialog dialog;
-    public Context context;
+
+    //routers domain
+    private static final String URL_ROST = "http://192.168.0.10:3000/";
+    private static final  String URL_EXTERN = "http://192.168.15.13:3000";
+    //public Context context;
+
 
     public static void returnJson() {
 
@@ -51,36 +55,39 @@ public class Service {
                 .build();
 
         UserGet apiServer = retrofit.create(UserGet.class);
+
+        Log.d("Service Class -> ", URL_ROST);
+
         final Call<List<Usuarios>> usuer = apiServer.getUsers();
         usuer.enqueue(new Callback<List<Usuarios>>() {
 
             @Override
             public void onResponse(Call<List<Usuarios>> call, Response<List<Usuarios>> response) {
-
                 MainActivity.dialog.dismiss();
-                Log.i("Resposta JSON: ", String.valueOf(response));
 
-                if (response.isSuccessful()) {
-                    List<Usuarios> user = response.body();
-                    JSONObject jsonObject;
-                    JSONArray array = new JSONArray(user);
-
-                    for (int i = 0; i < array.length(); i++) {
-                        try {
-                            jsonObject = array.getJSONObject(i);
-                            Log.i("USERS: ", "nome = " + jsonObject);
-                            Log.i("PERCORRENDO ARRAY: ", "nome = " + jsonObject.getString("Email"));
-                            MainActivity.txtJson.setText(jsonObject.toString());
+                if (response.body() != null){
 
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                } else {
-                    Log.i("DANDO EEROR: ", String.valueOf(response.code()));
+
+                }else {
 
                 }
+
+                /*
+
+                if (response.isSuccessful()) {
+                    response.body();
+                    JSONArray array  = new JSONArray();
+                    JSONObject object = array.getJSONObject();
+
+
+
+
+
+                } else {
+                    Log.i("DANDO ERROR: ", String.valueOf(response.code()));
+
+                } */
             }
 
             @Override

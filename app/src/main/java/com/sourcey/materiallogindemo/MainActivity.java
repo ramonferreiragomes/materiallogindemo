@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public Button btnSearch;
     private static final String TAG = "MainActivity";
     public static final String URL = "https://raw.githubusercontent.com/mobilesiri/JSON-Parsing-in-Android/master/index.html";
-    public static final String URL_ROST = "http://192.168.100.106";
 
     public static ProgressDialog dialog;
 
@@ -74,7 +73,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        Log.d("MainActivity: ", URL_ROST);
 
         dialog = new ProgressDialog(this);
         dialog.setMax(100);

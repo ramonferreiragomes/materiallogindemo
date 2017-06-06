@@ -41,4 +41,16 @@ public class BancoController {
 
         }
     }
+
+
+    public void searchData(){
+
+
+
+
+    }
+
+
+
+
 }

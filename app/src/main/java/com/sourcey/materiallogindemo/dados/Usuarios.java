@@ -8,7 +8,14 @@ import java.util.List;
  */
 
 public class Usuarios implements Serializable {
-    public Usuarios() {
+
+    private String name;
+    private String endereco;
+    private String email;
+    private String numberCel;
+    private String senha;
+
+    Usuarios() {
     }
 
     public Usuarios(String name, String endereco, String email, String numberCel, String senha) {
@@ -18,12 +25,6 @@ public class Usuarios implements Serializable {
         this.numberCel = numberCel;
         this.senha = senha;
     }
-
-    private String name;
-    private String endereco;
-    private String email;
-    private String numberCel;
-    private String senha;
 
     public String getName() {
         return name;
@@ -70,7 +71,7 @@ public class Usuarios implements Serializable {
     public String toString() {
 
         return
-                "\nNome: " + this.getName() +
+                        "\nNome: " + this.getName() +
                         "\nEndereço: " + this.getEndereco() +
                         "\nEmail: " + this.getEmail() +
                         "\nCelular: " + this.getNumberCel() +

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 /**
  * Created by Ramon Lopes on 06/05/2017.
@@ -30,9 +31,10 @@ public class CreateSQL extends SQLiteOpenHelper {
                 + NAME_TABELA + "("
                 + NAME_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ,"
                 + NAME_EMAIL + " TEXT ,"
-                + NAME_SENHA + " INTEGER "+")";
+                + NAME_SENHA + " TEXT"+")";
 
         db.execSQL(sql);
+        Log.d("TABELA SQL", sql);
     }
 
     @Override

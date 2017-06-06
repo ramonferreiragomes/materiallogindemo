@@ -84,6 +84,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+
     public void login() {
         Log.d(TAG, "LoginActivity");
 
@@ -93,6 +94,7 @@ public class LoginActivity extends AppCompatActivity {
         }else {
             Log.d(TAG, "LoginActivity (insertValues)");
             insertValues();
+
         }
         _loginButton.setEnabled(false);
 
